@@ -72,7 +72,7 @@
       font-size: 14px;
       opacity: .65;
       font-weight: 300;
-      max-width: 520px;
+      max-width: 560px;
     }
     .off-label-badge {
       display: inline-flex;
@@ -101,6 +101,128 @@
       max-width: 960px;
       margin: 0 auto;
       padding: 2.5rem 2rem 4rem;
+    }
+
+    /* ── CLICK-TO-DOSE CALCULATOR ────────────────────── */
+    .calc-card {
+      background: var(--card);
+      border: 1.5px solid var(--green-mid);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .calc-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--green);
+      margin-bottom: 1.25rem;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 700px) { .calc-grid { grid-template-columns: 1fr; } }
+    .calc-sub-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: .6rem;
+    }
+    .calc-clicks-val { color: var(--green); }
+    .click-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 100px;
+      background: var(--rule);
+      outline: none;
+      margin: .75rem 0 .4rem;
+      cursor: pointer;
+    }
+    .click-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--green);
+      box-shadow: 0 1px 4px rgba(0,0,0,.18);
+      cursor: pointer;
+    }
+    .click-slider::-moz-range-thumb {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--green);
+      box-shadow: 0 1px 4px rgba(0,0,0,.18);
+      cursor: pointer;
+    }
+    .click-slider::-moz-range-track { background: transparent; }
+    .calc-slider-ends {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      margin-bottom: 1.1rem;
+    }
+    .calc-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .chip {
+      padding: 6px 13px;
+      border-radius: 100px;
+      border: 1.5px solid var(--rule);
+      background: var(--card);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .chip:hover { border-color: var(--green-mid); color: var(--green); }
+    .chip.active {
+      background: var(--green-lt);
+      border-color: var(--green-mid);
+      color: var(--green);
+    }
+    .chip .chip-clicks {
+      color: var(--ink-muted);
+      font-weight: 400;
+    }
+    .chip.active .chip-clicks { color: var(--green-mid); }
+    .calc-readout {
+      background: var(--green-xlt);
+      border: 1px solid var(--green-lt);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+    }
+    .calc-mg {
+      font-size: 44px;
+      font-weight: 300;
+      letter-spacing: -.03em;
+      line-height: 1;
+      color: var(--green);
+    }
+    .calc-mg-label {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin: 4px 0 0;
+    }
+    .calc-readout .ccard-divider { background: var(--green-lt); }
+    .calc-note {
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      margin-top: .9rem;
+      line-height: 1.55;
     }
 
     /* ── PRICES STRIP ────────────────────────────────── */
@@ -141,6 +263,13 @@
       font-size: 16px;
       font-weight: 600;
       color: var(--ink);
+    }
+    .prices-strip-note {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-top: .75rem;
+      padding-top: .75rem;
+      border-top: 1px solid var(--rule);
     }
 
     /* ── DOSE SELECTOR ───────────────────────────────── */
@@ -272,53 +401,79 @@
     }
     .saving-val.no-saving { color: var(--ink-muted); font-weight: 400; }
 
-    /* ── SUMMARY TABLE ───────────────────────────────── */
+    /* ── MATRIX TABLE ────────────────────────────────── */
     .section-title {
       font-family: 'Instrument Serif', serif;
       font-size: 24px;
       font-weight: 400;
-      margin-bottom: 1rem;
+      margin-bottom: .35rem;
       margin-top: 2.5rem;
     }
-    .summary-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--card);
+    .section-sub {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      margin-bottom: 1.25rem;
+      max-width: 640px;
+    }
+    .matrix-wrap {
+      overflow-x: auto;
       border: 1px solid var(--rule);
       border-radius: var(--radius);
-      overflow: hidden;
-      font-size: 14px;
+      background: var(--card);
+      width: min(1120px, calc(100vw - 4rem));
+      margin-inline: calc((100% - min(1120px, calc(100vw - 4rem))) / 2);
     }
-    .summary-table thead {
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 860px;
+    }
+    .matrix-table thead {
       background: var(--ink);
       color: #fff;
     }
-    .summary-table th {
-      padding: .875rem 1.25rem;
-      text-align: left;
+    .matrix-table th {
+      padding: .7rem .75rem;
+      text-align: right;
       font-weight: 500;
       font-size: 12px;
-      letter-spacing: .04em;
-      text-transform: uppercase;
+      letter-spacing: .03em;
+      white-space: nowrap;
     }
-    .summary-table th:not(:first-child) { text-align: right; }
-    .summary-table td {
-      padding: .875rem 1.25rem;
+    .matrix-table th:first-child { text-align: left; }
+    .matrix-table th .th-price {
+      display: block;
+      font-weight: 400;
+      opacity: .6;
+      font-size: 11px;
+      letter-spacing: 0;
+    }
+    .matrix-table td {
+      padding: .65rem .75rem;
       border-bottom: 1px solid var(--rule);
+      text-align: right;
+      vertical-align: top;
+      white-space: nowrap;
     }
-    .summary-table tr:last-child td { border-bottom: none; }
-    .summary-table td:not(:first-child) { text-align: right; }
-    .summary-table tbody tr:hover { background: var(--bg); }
-    .td-dose { font-weight: 600; }
-    .td-winner-cell {
-      color: var(--green);
+    .matrix-table td:first-child {
+      text-align: left;
       font-weight: 600;
     }
-    .td-saving {
-      color: var(--green);
-      font-weight: 600;
+    .matrix-table tr:last-child td { border-bottom: none; }
+    .cell-cost { font-weight: 600; }
+    .cell-sub {
+      display: block;
+      font-size: 11px;
+      color: var(--ink-muted);
+      font-weight: 400;
+      margin-top: 1px;
     }
-    .td-muted { color: var(--ink-muted); }
+    .cell-empty { color: var(--rule); }
+    .cell-best {
+      background: var(--green-xlt);
+    }
+    .cell-best .cell-cost { color: var(--green); }
     .pill-best {
       display: inline-block;
       background: var(--green-lt);
@@ -329,8 +484,15 @@
       border-radius: 100px;
       letter-spacing: .04em;
       text-transform: uppercase;
-      margin-left: 4px;
+      margin-left: 5px;
       vertical-align: middle;
+    }
+    .td-saving { color: var(--green); font-weight: 600; }
+    .td-muted { color: var(--ink-muted); font-weight: 400; }
+    .matrix-footnote {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-top: .75rem;
     }
 
     /* ── REFERENCE TABLE ─────────────────────────────── */
@@ -424,163 +586,67 @@
   <div class="header-inner">
     <div class="wordmark">Well Revolution</div>
     <h1>Wegovy <em>Click Counting</em><br>Cost Calculator</h1>
-    <p class="header-sub">Compare the true monthly cost of click counting from higher-dose pens against buying your prescribed strength.</p>
+    <p class="header-sub">Slide the click counter to see what any click count delivers and costs, and compare click counting from higher-strength pens against buying your prescribed strength.</p>
     <div class="off-label-badge">Off-label use — discuss with your prescriber before proceeding</div>
   </div>
 </header>
 
 <main>
 
-  <!-- Current pen prices -->
-  <div class="prices-strip">
-    <div class="prices-strip-label">Current Wegovy pen prices</div>
-    <div class="prices-row">
-      <div class="price-item">
-        <div class="price-item-dose">0.25 mg</div>
-        <div class="price-item-price">$364.99</div>
+  <!-- Click-to-dose calculator -->
+  <div class="calc-card">
+    <div class="section-label" style="margin-bottom:.35rem">Click-to-dose calculator</div>
+    <div class="calc-title">Choose a pen, slide the clicks, see your dose</div>
+    <div class="calc-grid">
+      <div>
+        <div class="calc-sub-label">Pen</div>
+        <div class="dose-selector" id="calcPenSelector" style="margin-bottom:1.1rem"></div>
+        <div class="calc-sub-label">Clicks dialled — <span class="calc-clicks-val" id="calcClicksLabel"></span></div>
+        <input type="range" class="click-slider" id="clickSlider" min="1" max="75" step="1" value="8">
+        <div class="calc-slider-ends"><span>1 click</span><span id="calcMaxLabel"></span></div>
+        <div class="calc-sub-label" style="margin-top:.5rem">Jump to a standard dose</div>
+        <div class="calc-chips" id="calcChips"></div>
       </div>
-      <div class="price-item">
-        <div class="price-item-dose">0.5 mg</div>
-        <div class="price-item-price">$384.99</div>
-      </div>
-      <div class="price-item">
-        <div class="price-item-dose">1.0 mg</div>
-        <div class="price-item-price">$404.99</div>
-      </div>
-      <div class="price-item">
-        <div class="price-item-dose">1.7 mg</div>
-        <div class="price-item-price">$449.99</div>
-      </div>
-      <div class="price-item">
-        <div class="price-item-dose">2.4 mg</div>
-        <div class="price-item-price">$469.99</div>
+      <div class="calc-readout">
+        <div class="calc-mg" id="calcMg"></div>
+        <div class="calc-mg-label" id="calcMgLabel"></div>
+        <div class="ccard-divider"></div>
+        <div id="calcRows"></div>
+        <div class="calc-note">Doses per pen and monthly cost assume the whole pen is used at this click count. One full labelled dose is a quarter of the pen.</div>
       </div>
     </div>
   </div>
 
-  <!-- Dose selector -->
-  <div class="section-label">Select your prescribed dose</div>
-  <div class="dose-selector" id="doseSelector">
-    <button class="dose-btn active" data-mg="0.25">0.25 mg</button>
-    <button class="dose-btn" data-mg="0.5">0.5 mg</button>
-    <button class="dose-btn" data-mg="1.0">1.0 mg</button>
-    <button class="dose-btn" data-mg="1.7">1.7 mg</button>
+  <!-- Current pen prices -->
+  <div class="prices-strip">
+    <div class="prices-strip-label">Current Wegovy FlexTouch pen prices — Chemist Warehouse NZ</div>
+    <div class="prices-row" id="pricesRow"></div>
+    <div class="prices-strip-note">Every pen holds 4 doses of its labelled strength. The 0.25 and 0.5&nbsp;mg pens are 1.5&nbsp;mL; the 1, 1.7 and 2.4&nbsp;mg pens are 3&nbsp;mL. Prices checked July 2026 — confirm current pricing before purchase.</div>
   </div>
+
+  <!-- Dose selector -->
+  <div class="section-label">Select your prescribed weekly dose</div>
+  <div class="dose-selector" id="doseSelector"></div>
 
   <!-- Comparison cards -->
   <div class="compare-grid" id="compareGrid"></div>
 
-  <!-- Full summary table -->
-  <h2 class="section-title">All doses at a glance</h2>
-  <table class="summary-table" id="summaryTable">
-    <thead>
-      <tr>
-        <th>Dose</th>
-        <th>Correct pen<br><span style="font-weight:400;opacity:.6">monthly cost</span></th>
-        <th>1.7 mg pen<br><span style="font-weight:400;opacity:.6">monthly cost</span></th>
-        <th>2.4 mg pen<br><span style="font-weight:400;opacity:.6">monthly cost</span></th>
-        <th>Best option</th>
-        <th>Monthly saving</th>
-      </tr>
-    </thead>
-    <tbody id="summaryBody"></tbody>
-  </table>
+  <!-- Full matrix -->
+  <h2 class="section-title">Cost per dose — every pen, every dose</h2>
+  <p class="section-sub">Each column is a pen you can buy; each row is the weekly dose you actually take. Cells show cost per dose, with the clicks to dial and the doses one pen provides.</p>
+  <div class="matrix-wrap">
+    <table class="matrix-table" id="matrixTable"></table>
+  </div>
+  <p class="matrix-footnote">Where clicks don't divide evenly into the pen, doses per pen are rounded down and the remaining clicks are left over. The 0.25&nbsp;mg pen isn't covered by the click counting guide, so it appears only as a standard-use option.</p>
 
   <!-- Click reference tables -->
-  <h2 class="section-title">Click counting reference</h2>
-  <div class="ref-grid">
-    <!-- 1.7mg pen -->
-    <div class="ref-card">
-      <div class="ref-card-header">
-        <div class="ref-card-header-title">1.7 mg pen — $449.99</div>
-        <div class="ref-card-header-sub">3 mL · 300 total clicks · 0.0227 mg per click</div>
-      </div>
-      <table class="ref-table">
-        <thead>
-          <tr>
-            <th>Target dose</th>
-            <th>Clicks</th>
-            <th>Doses / pen</th>
-            <th>Cost / dose</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="">
-            <td class="ref-dose-label">0.25 mg</td>
-            <td>11</td>
-            <td>27</td>
-            <td>$16.67</td>
-          </tr>
-          <tr>
-            <td class="ref-dose-label">0.5 mg</td>
-            <td>22</td>
-            <td>13</td>
-            <td>$34.61</td>
-          </tr>
-          <tr>
-            <td class="ref-dose-label">1.0 mg</td>
-            <td>44</td>
-            <td>6</td>
-            <td>$75.00</td>
-          </tr>
-          <tr>
-            <td class="ref-dose-label">1.7 mg</td>
-            <td>75</td>
-            <td>4</td>
-            <td>$112.50</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 2.4mg pen -->
-    <div class="ref-card">
-      <div class="ref-card-header">
-        <div class="ref-card-header-title">2.4 mg pen — $469.99</div>
-        <div class="ref-card-header-sub">3 mL · 300 total clicks · 0.032 mg per click</div>
-      </div>
-      <table class="ref-table">
-        <thead>
-          <tr>
-            <th>Target dose</th>
-            <th>Clicks</th>
-            <th>Doses / pen</th>
-            <th>Cost / dose</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="ref-dose-label">0.25 mg</td>
-            <td>8</td>
-            <td>37</td>
-            <td>$12.70</td>
-          </tr>
-          <tr>
-            <td class="ref-dose-label">0.5 mg</td>
-            <td>16</td>
-            <td>18</td>
-            <td>$26.11</td>
-          </tr>
-          <tr>
-            <td class="ref-dose-label">1.0 mg</td>
-            <td>31</td>
-            <td>9</td>
-            <td>$52.22</td>
-          </tr>
-          <tr>
-            <td class="ref-dose-label">1.7 mg</td>
-            <td>53</td>
-            <td>5</td>
-            <td>$94.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <h2 class="section-title">Click counting reference — every pen</h2>
+  <p class="section-sub">From the Well Revolution Wegovy click counting guide. A full labelled dose is 37 clicks on the 0.5&nbsp;mg pen and 75 clicks on the 3&nbsp;mL pens.</p>
+  <div class="ref-grid" id="refGrid"></div>
 
   <!-- Disclaimer -->
   <div class="disclaimer">
-    <strong>Important:</strong> Using a Wegovy pen to deliver a dose other than its labelled strength is considered off-label and is not approved by the manufacturer or Medsafe/FDA. This information is provided by Well Revolution for educational purposes only. All dosing decisions must be made in consultation with your prescribing clinician. Monthly cost calculations assume 4 doses per month and use pen price at first-use divided by total available doses from 300 clicks.
+    <strong>Important:</strong> Using a Wegovy FlexTouch pen to deliver a dose other than its labelled strength is off-label and is not approved by the manufacturer or Medsafe. Click counts follow the Well Revolution Wegovy click counting guide: the 0.5&nbsp;mg pen is 1.5&nbsp;mL (148 clicks in total); the 1, 1.7 and 2.4&nbsp;mg pens are 3&nbsp;mL (300 clicks in total). Rounded click counts deliver slightly more or less than the nominal dose (for example, 8 clicks on a 2.4&nbsp;mg pen delivers 0.26&nbsp;mg rather than 0.25&nbsp;mg). Manufacturer guidance is to discard a pen 6 weeks after first use — click counting many doses from one pen extends use well beyond this window; discuss storage and pen life with your prescriber. Figures use the pen price divided by full doses available from the pen's total clicks, assume 4 weekly doses per month, and don't allow for extra needles when taking more than 4 doses from one pen. Prices are from Chemist Warehouse NZ as at 21 July 2026 and may change. All dosing decisions must be made in consultation with your prescribing clinician.
   </div>
 
 </main>
@@ -590,138 +656,251 @@
 </footer>
 
 <script>
-  const DATA = {
-    correctPens: {
-      '0.25': { price: 364.99, doses: 4 },
-      '0.5':  { price: 384.99, doses: 4 },
-      '1.0':  { price: 404.99, doses: 4 },
-      '1.7':  { price: 449.99, doses: 4 },
-    },
-    pen17: {
-      price: 449.99,
-      totalClicks: 300,
-      mgPerClick: 0.0227,
-      doses: { '0.25': 27, '0.5': 13, '1.0': 6, '1.7': 4 },
-      clicks: { '0.25': 11, '0.5': 22, '1.0': 44, '1.7': 75 },
-    },
-    pen24: {
-      price: 469.99,
-      totalClicks: 300,
-      mgPerClick: 0.032,
-      doses: { '0.25': 37, '0.5': 18, '1.0': 9, '1.7': 5 },
-      clicks: { '0.25': 8, '0.5': 16, '1.0': 31, '1.7': 53 },
-    },
-  };
+  // ── Single source of truth — update prices here ──
+  // clicks: total clicks in the pen (4 full doses); null = not covered by the click counting guide
+  const PENS = [
+    { mg: 0.25, price: 364.99, ml: 1.5, clicks: null },
+    { mg: 0.5,  price: 384.99, ml: 1.5, clicks: 148  },
+    { mg: 1,    price: 404.99, ml: 3,   clicks: 300  },
+    { mg: 1.7,  price: 449.99, ml: 3,   clicks: 300  },
+    { mg: 2.4,  price: 469.99, ml: 3,   clicks: 300  },
+  ];
+  // Click counts fixed by the Well Revolution guide where rounding is ambiguous
+  const CLICK_OVERRIDES = { '0.5': { '0.25': 18 }, '1': { '0.5': 37 } };
 
-  const DOSES = ['0.25', '0.5', '1.0', '1.7'];
-  const DOSE_LABELS = { '0.25': '0.25 mg', '0.5': '0.5 mg', '1.0': '1.0 mg', '1.7': '1.7 mg' };
+  const DOSES = PENS.map(p => p.mg);             // prescribed doses
+  const REF_DOSES = [0.25, 0.5, 1, 1.7, 2, 2.4]; // reference tables include the guide's 2 mg row
+  const DOSES_PER_PEN = 4;
   const DOSES_PER_MONTH = 4;
 
-  function fmt(n)     { return '$' + n.toFixed(2); }
-  function fmtWhole(n){ return '$' + Math.round(n).toLocaleString(); }
+  const fmt   = n => '$' + n.toLocaleString('en-NZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const fmtMg = n => +n.toFixed(2) + ' mg';
+  const mgPerClick  = pen => pen.mg * DOSES_PER_PEN / pen.clicks;
+  const clicksFor   = (pen, doseMg) =>
+    CLICK_OVERRIDES[String(pen.mg)]?.[String(doseMg)] ?? Math.round(doseMg / mgPerClick(pen));
+  const dosesFor    = (pen, doseMg) =>
+    pen.clicks ? Math.floor(pen.clicks / clicksFor(pen, doseMg)) : DOSES_PER_PEN;
+  const costPerDose = (pen, doseMg) => pen.price / dosesFor(pen, doseMg);
+  const canClickCount = (pen, doseMg) => pen.clicks && pen.mg >= doseMg;
 
-  function monthly(penPrice, dosesPerPen) {
-    return (penPrice / dosesPerPen) * DOSES_PER_MONTH;
+  // Best-value pen for a given dose (ties go to the correct/lower pen)
+  function bestPenFor(doseMg) {
+    let best = null;
+    for (const pen of PENS) {
+      if (pen.mg < doseMg || (!pen.clicks && pen.mg !== doseMg)) continue;
+      const c = costPerDose(pen, doseMg);
+      if (!best || c < best.cost - 1e-9) best = { pen, cost: c };
+    }
+    return best;
   }
 
-  function getMonthly(k) {
-    const cp  = monthly(DATA.correctPens[k].price, DATA.correctPens[k].doses);
-    const p17 = monthly(DATA.pen17.price, DATA.pen17.doses[k]);
-    const p24 = monthly(DATA.pen24.price, DATA.pen24.doses[k]);
-    return { cp, p17, p24 };
+  // ── Click-to-dose calculator ──
+  const calcState = { penMg: 2.4, clicks: 8 };
+  const CALC_PENS = PENS.filter(p => p.clicks);
+
+  function calcPen() { return PENS.find(p => p.mg === calcState.penMg); }
+  function fullDoseClicks(pen) { return pen.clicks / DOSES_PER_PEN; }
+
+  function renderCalcPens() {
+    document.getElementById('calcPenSelector').innerHTML = CALC_PENS.map(p =>
+      `<button class="dose-btn ${p.mg === calcState.penMg ? 'active' : ''}" data-pen="${p.mg}">${fmtMg(p.mg)} pen</button>`).join('');
   }
 
-  let activeDose = '0.25';
-
-  function renderCards(k) {
-    const { cp, p17, p24 } = getMonthly(k);
-    const p17wins = p17 <= p24;
-    const p24wins = p24 < p17;
-    const bestCC  = Math.min(p17, p24);
-    const p17save = cp - p17;
-    const p24save = cp - p24;
-
-    const pen17Clicks = DATA.pen17.clicks[k];
-    const pen17Doses  = DATA.pen17.doses[k];
-    const pen24Clicks = DATA.pen24.clicks[k];
-    const pen24Doses  = DATA.pen24.doses[k];
-    const cpInfo = DATA.correctPens[k];
-
-    document.getElementById('compareGrid').innerHTML = `
-      <div class="ccard animate-in">
-        <div class="ccard-type">Buy correct pen</div>
-        <div class="ccard-pen">Wegovy ${DOSE_LABELS[k]}</div>
-        <div class="ccard-monthly">${fmt(cp)}</div>
-        <div class="ccard-monthly-label">per month · 4 doses</div>
-        <div class="ccard-divider"></div>
-        <div class="ccard-row"><span class="ccard-row-label">Pen price</span><span class="ccard-row-val">${fmt(cpInfo.price)}</span></div>
-        <div class="ccard-row"><span class="ccard-row-label">Doses per pen</span><span class="ccard-row-val">4</span></div>
-        <div class="ccard-row"><span class="ccard-row-label">Cost per dose</span><span class="ccard-row-val">${fmt(cpInfo.price / 4)}</span></div>
-        <div class="saving-val no-saving">Baseline — no click counting</div>
-      </div>
-
-      <div class="ccard ${p17wins ? 'winner' : ''} animate-in" style="animation-delay:.05s">
-        <div class="ccard-type">Click count</div>
-        <div class="ccard-pen">1.7 mg pen</div>
-        <div class="ccard-monthly ${p17wins ? 'is-winner' : ''}">${fmt(p17)}</div>
-        <div class="ccard-monthly-label">per month · 4 doses</div>
-        <div class="ccard-divider"></div>
-        <div class="ccard-row"><span class="ccard-row-label">Pen price</span><span class="ccard-row-val">${fmt(DATA.pen17.price)}</span></div>
-        <div class="ccard-row"><span class="ccard-row-label">Clicks for ${DOSE_LABELS[k]}</span><span class="ccard-row-val">${pen17Clicks} clicks</span></div>
-        <div class="ccard-row"><span class="ccard-row-label">Doses per pen</span><span class="ccard-row-val">${pen17Doses}</span></div>
-        <div class="ccard-row"><span class="ccard-row-label">Cost per dose</span><span class="ccard-row-val">${fmt(DATA.pen17.price / pen17Doses)}</span></div>
-        <div class="saving-val ${p17save > 0 ? '' : 'no-saving'}">${p17save > 0 ? 'Saves ' + fmt(p17save) + '/month vs correct pen' : 'No savings vs correct pen'}</div>
-      </div>
-
-      <div class="ccard ${p24wins ? 'winner' : ''} animate-in" style="animation-delay:.1s">
-        <div class="ccard-type">Click count</div>
-        <div class="ccard-pen">2.4 mg pen</div>
-        <div class="ccard-monthly ${p24wins ? 'is-winner' : ''}">${fmt(p24)}</div>
-        <div class="ccard-monthly-label">per month · 4 doses</div>
-        <div class="ccard-divider"></div>
-        <div class="ccard-row"><span class="ccard-row-label">Pen price</span><span class="ccard-row-val">${fmt(DATA.pen24.price)}</span></div>
-        <div class="ccard-row"><span class="ccard-row-label">Clicks for ${DOSE_LABELS[k]}</span><span class="ccard-row-val">${pen24Clicks} clicks</span></div>
-        <div class="ccard-row"><span class="ccard-row-label">Doses per pen</span><span class="ccard-row-val">${pen24Doses}</span></div>
-        <div class="ccard-row"><span class="ccard-row-label">Cost per dose</span><span class="ccard-row-val">${fmt(DATA.pen24.price / pen24Doses)}</span></div>
-        <div class="saving-val ${p24save > 0 ? '' : 'no-saving'}">${p24save > 0 ? 'Saves ' + fmt(p24save) + '/month vs correct pen' : 'No savings vs correct pen'}</div>
-      </div>
-    `;
+  function renderCalcChips() {
+    const pen = calcPen();
+    document.getElementById('calcChips').innerHTML = DOSES
+      .filter(d => d <= pen.mg)
+      .map(d => {
+        const c = clicksFor(pen, d);
+        return `<button class="chip ${c === calcState.clicks ? 'active' : ''}" data-clicks="${c}">${fmtMg(d)} <span class="chip-clicks">· ${c} clicks</span></button>`;
+      }).join('');
   }
 
-  function renderSummary() {
-    const rows = DOSES.map(k => {
-      const { cp, p17, p24 } = getMonthly(k);
-      const bestCCcost = Math.min(p17, p24);
-      const bestLabel  = p17 <= p24 ? '2.4 mg pen' : '2.4 mg pen';
-      const bestLabelFull = p17 <= p24 ? '1.7 mg pen' : '2.4 mg pen';
-      const saving = cp - bestCCcost;
-      const savingPct = ((saving / cp) * 100).toFixed(0);
+  function renderCalc() {
+    const pen = calcPen();
+    const slider = document.getElementById('clickSlider');
+    const max = fullDoseClicks(pen);
+    slider.max = max;
+    if (calcState.clicks > max) calcState.clicks = max;
+    slider.value = calcState.clicks;
+    const pct = (calcState.clicks - 1) / (max - 1) * 100;
+    slider.style.background = `linear-gradient(to right, var(--green) ${pct}%, var(--rule) ${pct}%)`;
 
-      return `<tr>
-        <td class="td-dose">${DOSE_LABELS[k]}</td>
-        <td>${fmt(cp)}</td>
-        <td class="${p17 <= p24 ? 'td-winner-cell' : ''}">${fmt(p17)}</td>
-        <td class="${p24 < p17 ? 'td-winner-cell' : ''}">${fmt(p24)}</td>
-        <td>${bestLabelFull}<span class="pill-best">✓</span></td>
-        <td class="td-saving">${fmt(saving)}<span class="td-muted" style="font-weight:400;font-size:12px"> (${savingPct}%)</span></td>
-      </tr>`;
-    });
-    document.getElementById('summaryBody').innerHTML = rows.join('');
+    const mg = calcState.clicks * mgPerClick(pen);
+    const dosesPerPen = Math.floor(pen.clicks / calcState.clicks);
+    const perDose = pen.price / dosesPerPen;
+    const clickWord = calcState.clicks === 1 ? 'click' : 'clicks';
+
+    document.getElementById('calcClicksLabel').textContent = `${calcState.clicks} ${clickWord}`;
+    document.getElementById('calcMaxLabel').textContent = `${max} clicks = full ${fmtMg(pen.mg)} dose`;
+    document.getElementById('calcMg').textContent = fmtMg(mg);
+    document.getElementById('calcMgLabel').textContent =
+      `effective dose from ${calcState.clicks} ${clickWord} on the ${fmtMg(pen.mg)} pen · ${mgPerClick(pen).toFixed(4)} mg per click`;
+    document.getElementById('calcRows').innerHTML = `
+      <div class="ccard-row"><span class="ccard-row-label">Pen price</span><span class="ccard-row-val">${fmt(pen.price)}</span></div>
+      <div class="ccard-row"><span class="ccard-row-label">Doses per pen at this click count</span><span class="ccard-row-val">${dosesPerPen}</span></div>
+      <div class="ccard-row"><span class="ccard-row-label">Cost per dose</span><span class="ccard-row-val">${fmt(perDose)}</span></div>
+      <div class="ccard-row"><span class="ccard-row-label">Cost per month (4 doses)</span><span class="ccard-row-val">${fmt(perDose * DOSES_PER_MONTH)}</span></div>`;
+    renderCalcChips();
   }
 
-  // Dose button interaction
-  document.getElementById('doseSelector').addEventListener('click', e => {
+  document.getElementById('calcPenSelector').addEventListener('click', e => {
     const btn = e.target.closest('.dose-btn');
     if (!btn) return;
-    document.querySelectorAll('.dose-btn').forEach(b => b.classList.remove('active'));
+    calcState.penMg = parseFloat(btn.dataset.pen);
+    renderCalcPens();
+    renderCalc();
+  });
+  document.getElementById('clickSlider').addEventListener('input', e => {
+    calcState.clicks = parseInt(e.target.value, 10);
+    renderCalc();
+  });
+  document.getElementById('calcChips').addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    calcState.clicks = parseInt(chip.dataset.clicks, 10);
+    renderCalc();
+  });
+
+  // ── Prices strip ──
+  document.getElementById('pricesRow').innerHTML = PENS.map(p => `
+    <div class="price-item">
+      <div class="price-item-dose">${fmtMg(p.mg)}</div>
+      <div class="price-item-price">${fmt(p.price)}</div>
+    </div>`).join('');
+
+  // ── Dose selector ──
+  let activeDose = 0.25;
+  const selector = document.getElementById('doseSelector');
+  selector.innerHTML = DOSES.map(d =>
+    `<button class="dose-btn ${d === activeDose ? 'active' : ''}" data-mg="${d}">${fmtMg(d)}</button>`).join('');
+  selector.addEventListener('click', e => {
+    const btn = e.target.closest('.dose-btn');
+    if (!btn) return;
+    selector.querySelectorAll('.dose-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    activeDose = btn.dataset.mg;
+    activeDose = parseFloat(btn.dataset.mg);
     renderCards(activeDose);
   });
 
-  // Initial render
+  // ── Comparison cards ──
+  function renderCards(doseMg) {
+    const correctPen = PENS.find(p => p.mg === doseMg);
+    const correctMonthly = costPerDose(correctPen, doseMg) * DOSES_PER_MONTH;
+    const best = bestPenFor(doseMg);
+    const options = PENS.filter(p => p.mg === doseMg || canClickCount(p, doseMg));
+
+    const cards = options.map((pen, i) => {
+      const isCorrect = pen.mg === doseMg;
+      const doses   = dosesFor(pen, doseMg);
+      const perDose = costPerDose(pen, doseMg);
+      const monthly = perDose * DOSES_PER_MONTH;
+      const saving  = correctMonthly - monthly;
+      const isWinner = best && best.pen.mg === pen.mg && options.length > 1;
+      const clicksRow = pen.clicks
+        ? `<div class="ccard-row"><span class="ccard-row-label">Clicks for ${fmtMg(doseMg)}</span><span class="ccard-row-val">${clicksFor(pen, doseMg)} clicks</span></div>`
+        : '';
+
+      const savingLine = isCorrect
+        ? '<div class="saving-val no-saving">Baseline — no click counting</div>'
+        : `<div class="saving-val ${saving > 0.005 ? '' : 'no-saving'}">${saving > 0.005
+            ? 'Saves ' + fmt(saving) + '/month vs correct pen'
+            : 'No savings vs correct pen'}</div>`;
+
+      return `
+      <div class="ccard ${isWinner ? 'winner' : ''} animate-in" style="animation-delay:${i * .05}s">
+        <div class="ccard-type">${isCorrect ? 'Buy correct pen' : 'Click count'}</div>
+        <div class="ccard-pen">${fmtMg(pen.mg)} pen</div>
+        <div class="ccard-monthly ${isWinner ? 'is-winner' : ''}">${fmt(monthly)}</div>
+        <div class="ccard-monthly-label">per month · 4 doses</div>
+        <div class="ccard-divider"></div>
+        <div class="ccard-row"><span class="ccard-row-label">Pen price</span><span class="ccard-row-val">${fmt(pen.price)}</span></div>
+        ${clicksRow}
+        <div class="ccard-row"><span class="ccard-row-label">Doses per pen</span><span class="ccard-row-val">${doses}</span></div>
+        <div class="ccard-row"><span class="ccard-row-label">Cost per dose</span><span class="ccard-row-val">${fmt(perDose)}</span></div>
+        ${savingLine}
+      </div>`;
+    });
+
+    document.getElementById('compareGrid').innerHTML = cards.join('');
+  }
+
+  // ── Matrix ──
+  function renderMatrix() {
+    const head = `<thead><tr>
+      <th>Your weekly dose</th>
+      ${PENS.map(p => `<th>${fmtMg(p.mg)} pen<span class="th-price">${fmt(p.price)}</span></th>`).join('')}
+      <th>Saving<span class="th-price">vs correct pen</span></th>
+    </tr></thead>`;
+
+    const rows = DOSES.map(doseMg => {
+      const correctPen = PENS.find(p => p.mg === doseMg);
+      const correctCost = costPerDose(correctPen, doseMg);
+      const best = bestPenFor(doseMg);
+      const savingPerDose = correctCost - best.cost;
+      const savingPct = Math.round((savingPerDose / correctCost) * 100);
+      const hasSaving = savingPerDose > 0.005;
+
+      const cells = PENS.map(pen => {
+        const isCorrect = pen.mg === doseMg;
+        if (!isCorrect && !canClickCount(pen, doseMg)) return '<td class="cell-empty">—</td>';
+        const doses = dosesFor(pen, doseMg);
+        const cost  = costPerDose(pen, doseMg);
+        const isBest = best.pen.mg === pen.mg;
+        const sub = isCorrect
+          ? `standard use · ${doses} doses`
+          : `${clicksFor(pen, doseMg)} clicks · ${doses} doses`;
+        return `<td class="${isBest && hasSaving ? 'cell-best' : ''}">
+          <span class="cell-cost">${fmt(cost)}</span>${isBest && hasSaving ? '<span class="pill-best">Best</span>' : ''}
+          <span class="cell-sub">${sub}</span>
+        </td>`;
+      }).join('');
+
+      const savingCell = hasSaving
+        ? `<td><span class="td-saving">${fmt(savingPerDose)}/dose</span><span class="cell-sub td-muted">${savingPct}% with ${fmtMg(best.pen.mg)} pen</span></td>`
+        : `<td class="td-muted">${doseMg === Math.max(...DOSES) ? '—' : 'none'}</td>`;
+
+      return `<tr><td>${fmtMg(doseMg)}</td>${cells}${savingCell}</tr>`;
+    }).join('');
+
+    document.getElementById('matrixTable').innerHTML = head + `<tbody>${rows}</tbody>`;
+  }
+
+  // ── Reference cards ──
+  function renderRefCards() {
+    document.getElementById('refGrid').innerHTML = CALC_PENS.map(pen => {
+      const doseRows = REF_DOSES.filter(d => d <= pen.mg).map(d => {
+        const isFull = d === pen.mg;
+        return `<tr class="${isFull ? 'ref-highlight' : ''}">
+          <td class="ref-dose-label">${fmtMg(d)}</td>
+          <td>${clicksFor(pen, d)}</td>
+          <td>${dosesFor(pen, d)}</td>
+          <td>${fmt(costPerDose(pen, d))}</td>
+        </tr>`;
+      }).join('');
+
+      return `
+      <div class="ref-card">
+        <div class="ref-card-header">
+          <div class="ref-card-header-title">${fmtMg(pen.mg)} pen — ${fmt(pen.price)}</div>
+          <div class="ref-card-header-sub">${pen.ml} mL · ${pen.clicks} total clicks · ${mgPerClick(pen).toFixed(4)} mg per click</div>
+        </div>
+        <table class="ref-table">
+          <thead>
+            <tr><th>Target dose</th><th>Clicks</th><th>Doses / pen</th><th>Cost / dose</th></tr>
+          </thead>
+          <tbody>${doseRows}</tbody>
+        </table>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Initial render ──
+  renderCalcPens();
+  renderCalc();
   renderCards(activeDose);
-  renderSummary();
+  renderMatrix();
+  renderRefCards();
 </script>
 </body>
 </html>
